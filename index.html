@@ -420,7 +420,7 @@
           <p>إذا رغبتَ في تغطية فعالية أو مناسبة دينية، يمكنك إرسال التفاصيل عبر النموذج المجاور، أو التواصل المباشر عبر وسائل الاتصال التالية.</p>
         </div>
         <div class="contact-list">
-          <div class="contact-item"><div class="contact-icon"><svg class="icon-svg lg"><use href="#i-phone"/></svg></div><span dir="ltr">+964 770 123 4567</span></div>
+          <div class="contact-item"><div class="contact-icon"><svg class="icon-svg lg"><use href="#i-phone"/></svg></div><a href="tel:+9647723774412" dir="ltr">+964 772 377 4412</a></div>
           <div class="contact-item"><div class="contact-icon"><svg class="icon-svg lg"><use href="#i-mail"/></svg></div><span dir="ltr">info@husseinalkhafaji.com</span></div>
           <div class="contact-item"><div class="contact-icon"><svg class="icon-svg lg"><use href="#i-pin"/></svg></div><span>كربلاء المقدسة - العراق</span></div>
         </div>
@@ -435,18 +435,18 @@
         <h3>أرسل طلب التغطية</h3>
         <p>املأ الحقول التالية وسيتم التواصل معك بأقرب وقت ممكن.</p>
         <div class="form-grid">
-          <input class="input" type="text" placeholder="الاسم الكامل" required>
-          <input class="input" type="tel" placeholder="رقم الهاتف" required>
-          <select class="input">
-            <option>نوع الخدمة</option>
+          <input class="input" id="customerName" name="customerName" type="text" placeholder="الاسم الكامل" required>
+          <input class="input" id="customerPhone" name="customerPhone" type="tel" placeholder="رقم الهاتف" required>
+          <select class="input" id="serviceType" name="serviceType" required>
+            <option value="" selected disabled>نوع الخدمة</option>
             <option>التغطية الإعلامية</option>
             <option>التصوير الفوتوغرافي</option>
             <option>تصوير الفيديو</option>
             <option>المونتاج والتصميم</option>
             <option>التوثيق والأرشفة</option>
           </select>
-          <input class="input" type="date">
-          <textarea class="input full" placeholder="تفاصيل الطلب"></textarea>
+          <input class="input" id="eventDate" name="eventDate" type="date">
+          <textarea class="input full" id="requestDetails" name="requestDetails" placeholder="تفاصيل الطلب"></textarea>
           <button class="submit full" type="submit">إرسال الطلب</button>
         </div>
       </form>
@@ -491,7 +491,7 @@
   </div>
 </footer>
 
-<div class="toast" id="toast">تم استلام طلبك بنجاح</div>
+<div class="toast" id="toast">سيتم فتح واتساب لإرسال الطلب</div>
 
 <script>
   const nav = document.getElementById('nav');
@@ -529,10 +529,28 @@
 
   document.getElementById('bookingForm').addEventListener('submit', e => {
     e.preventDefault();
+
+    const name = document.getElementById('customerName').value.trim();
+    const phone = document.getElementById('customerPhone').value.trim();
+    const service = document.getElementById('serviceType').value;
+    const date = document.getElementById('eventDate').value || 'غير محدد';
+    const details = document.getElementById('requestDetails').value.trim() || 'لا توجد تفاصيل إضافية';
+
+    const message =
+      'السلام عليكم، لدي طلب تغطية جديد من الموقع:%0A%0A' +
+      'الاسم: ' + name + '%0A' +
+      'رقم الهاتف: ' + phone + '%0A' +
+      'نوع الخدمة: ' + service + '%0A' +
+      'تاريخ الفعالية: ' + date + '%0A' +
+      'تفاصيل الطلب: ' + details;
+
+    const whatsappUrl = 'https://wa.me/9647723774412?text=' + encodeURI(message);
+    window.open(whatsappUrl, '_blank', 'noopener');
+
     const toast = document.getElementById('toast');
+    toast.textContent = 'تم تجهيز الطلب وسيتم فتح واتساب لإرساله';
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2600);
-    e.target.reset();
+    setTimeout(() => toast.classList.remove('show'), 3200);
   });
 </script>
 </body>
