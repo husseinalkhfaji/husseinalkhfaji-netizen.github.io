@@ -548,13 +548,12 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   const tabs = [...document.querySelectorAll('.tab')];
-  const works = [...document.querySelectorAll('.work')];
   tabs.forEach(tab => tab.addEventListener('click', () => {
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     const filter = tab.dataset.filter;
-    works.forEach(work => {
-      work.classList.toggle('hide', !(filter === 'all' || work.dataset.cat.includes(filter)));
+    document.querySelectorAll('.work').forEach(work => {
+      work.classList.toggle('hide', !(filter === 'all' || (work.dataset.cat || '').includes(filter)));
     });
   }));
 
@@ -592,8 +591,18 @@
   let currentGallery = 'karbala-million';
 
   function renderGallery(){
-    const pos = galleryTotal > 1 ? (galleryIndex / (galleryTotal - 1)) * 100 : 0;
-    galleryPhoto.style.backgroundPosition = 'center ' + pos + '%';
+    const def = galleryDefs[currentGallery] || {};
+    if (Array.isArray(def.images) && def.images.length) {
+      galleryPhoto.style.backgroundImage = "url('" + String(def.images[galleryIndex]).replace(/'/g, "%27") + "')";
+      galleryPhoto.style.backgroundSize = 'contain';
+      galleryPhoto.style.backgroundRepeat = 'no-repeat';
+      galleryPhoto.style.backgroundPosition = 'center';
+    } else {
+      const pos = galleryTotal > 1 ? (galleryIndex / (galleryTotal - 1)) * 100 : 0;
+      galleryPhoto.style.backgroundSize = '100% 800%';
+      galleryPhoto.style.backgroundRepeat = 'no-repeat';
+      galleryPhoto.style.backgroundPosition = 'center ' + pos + '%';
+    }
     galleryCount.textContent = 'الصورة ' + (galleryIndex + 1) + ' من ' + galleryTotal;
   }
 
@@ -601,12 +610,14 @@
     const def = galleryDefs[id];
     if (!def) return;
     currentGallery = id;
-    galleryTotal = def.total;
+    galleryTotal = Array.isArray(def.images) && def.images.length ? def.images.length : def.total;
     galleryIndex = 0;
     galleryTitle.textContent = def.title;
     galleryPhoto.setAttribute('aria-label', 'صورة من معرض ' + def.title);
 
-    if (def.sprite) {
+    if (Array.isArray(def.images) && def.images.length) {
+      galleryPhoto.style.removeProperty('background-image');
+    } else if (def.sprite) {
       galleryPhoto.style.backgroundImage = "url('" + def.sprite + "')";
     } else {
       galleryPhoto.style.removeProperty('background-image');
@@ -629,6 +640,9 @@
     galleryIndex = (galleryIndex + dir + galleryTotal) % galleryTotal;
     renderGallery();
   }
+
+  window.__galleryDefs = galleryDefs;
+  window.__openGallery = openGallery;
 
   document.querySelectorAll('[data-gallery]').forEach(card => {
     const launch = () => openGallery(card.dataset.gallery);
@@ -679,7 +693,8 @@
       'تاريخ الفعالية: ' + date + '%0A' +
       'تفاصيل الطلب: ' + details;
 
-    const whatsappUrl = 'https://wa.me/9647723774412?text=' + encodeURI(message);
+    const whatsappNumber = window.cmsWhatsAppNumber || '9647723774412';
+    const whatsappUrl = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURI(message);
     window.open(whatsappUrl, '_blank', 'noopener');
 
     const toast = document.getElementById('toast');
@@ -688,5 +703,6 @@
     setTimeout(() => toast.classList.remove('show'), 3200);
   });
 </script>
+<script src="assets/cms.js"></script>
 </body>
 </html>
