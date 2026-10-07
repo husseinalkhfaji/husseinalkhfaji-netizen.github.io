@@ -1,0 +1,119 @@
+backend:
+  name: turbo-github
+  turbo_site_id: REPLACE_WITH_TURBO_SITE_ID
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "assets/uploads"
+
+locale: "ar"
+
+collections:
+  - name: "site"
+    label: "إدارة الموقع"
+    files:
+      - name: "site_content"
+        label: "محتوى الموقع"
+        file: "content/site.json"
+        format: "json"
+        fields:
+          - label: "الواجهة الرئيسية"
+            name: "hero"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "السطر التعريفي", name: "kicker", widget: "string" }
+              - { label: "العنوان الرئيسي", name: "title", widget: "string" }
+              - { label: "الكلمة المميزة", name: "highlight", widget: "string" }
+              - { label: "الوصف", name: "description", widget: "text" }
+              - { label: "نص زر الأعمال", name: "primary_button", widget: "string" }
+              - { label: "نص زر الحجز", name: "secondary_button", widget: "string" }
+              - { label: "صورة المقدمة", name: "image", widget: "image", required: false }
+
+          - label: "الإحصائيات"
+            name: "stats"
+            widget: "list"
+            summary: "{{fields.value}} — {{fields.label}}"
+            fields:
+              - { label: "الرقم", name: "value", widget: "string" }
+              - { label: "الوصف", name: "label", widget: "string" }
+
+          - label: "عنوان قسم الخدمات"
+            name: "services_section"
+            widget: "object"
+            fields:
+              - { label: "العنوان", name: "title", widget: "string" }
+              - { label: "الوصف", name: "description", widget: "text" }
+
+          - label: "الخدمات"
+            name: "services"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "اسم الخدمة", name: "title", widget: "string" }
+              - { label: "الوصف", name: "description", widget: "text" }
+              - { label: "الشارة", name: "tag", widget: "string", required: false }
+              - { label: "صورة الخدمة", name: "image", widget: "image", required: false }
+
+          - label: "عنوان قسم الأعمال"
+            name: "portfolio_section"
+            widget: "object"
+            fields:
+              - { label: "العنوان", name: "title", widget: "string" }
+              - { label: "الوصف", name: "description", widget: "text" }
+
+          - label: "الأعمال ومعارض الصور"
+            name: "works"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "اسم العمل", name: "title", widget: "string" }
+              - { label: "الوصف المختصر", name: "subtitle", widget: "string", required: false }
+              - { label: "التصنيف", name: "category", widget: "string", default: "photo" }
+              - { label: "صورة الغلاف", name: "cover", widget: "image", required: false }
+              - label: "صور المعرض"
+                name: "gallery"
+                widget: "list"
+                required: false
+                field: { label: "صورة", name: "image", widget: "image" }
+
+          - label: "نبذة عني"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "العنوان", name: "title", widget: "string" }
+              - { label: "الفقرة الأولى", name: "paragraph1", widget: "text" }
+              - { label: "الفقرة الثانية", name: "paragraph2", widget: "text" }
+              - { label: "الفقرة الثالثة", name: "paragraph3", widget: "text" }
+              - { label: "الاقتباس", name: "quote", widget: "text" }
+              - { label: "الصورة", name: "image", widget: "image", required: false }
+
+          - label: "عنوان قسم الأخبار"
+            name: "news_section"
+            widget: "object"
+            fields:
+              - { label: "العنوان", name: "title", widget: "string" }
+              - { label: "الوصف", name: "description", widget: "text" }
+
+          - label: "الأخبار والتغطيات"
+            name: "news"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "عنوان الخبر", name: "title", widget: "string" }
+              - { label: "التاريخ", name: "date", widget: "string", required: false }
+              - { label: "ملخص الخبر", name: "summary", widget: "text" }
+              - { label: "صورة الخبر", name: "image", widget: "image", required: false }
+
+          - label: "التواصل والحجز"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "العنوان", name: "title", widget: "string" }
+              - { label: "الوصف", name: "description", widget: "text" }
+              - { label: "رقم الهاتف", name: "phone", widget: "string" }
+              - { label: "رقم واتساب بدون + أو مسافات", name: "whatsapp", widget: "string" }
+              - { label: "البريد الإلكتروني", name: "email", widget: "string" }
+              - { label: "الموقع", name: "location", widget: "string" }
+              - { label: "عنوان صورة التواصل", name: "overlay_title", widget: "string" }
+              - { label: "وصف صورة التواصل", name: "overlay_text", widget: "text" }
