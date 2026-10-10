@@ -88,7 +88,7 @@
         card.innerHTML = '<img alt=""><div class="work-info"><h3></h3><span></span></div>';
         wrap.appendChild(card);
       }
-      card.dataset.cat = item.category || 'photo';
+      card.dataset.cat = Array.isArray(item.category) ? item.category.join(' ') : (item.category || 'photo');
       setText(q('.work-info h3', card), item.title);
       setText(q('.work-info span', card), item.subtitle || '');
       const img = q('img', card);
@@ -226,37 +226,106 @@
     }
   }
 
+
+  function applySettings(settings={}) {
+    if (settings.site_title) document.title = settings.site_title;
+    if (settings.meta_description) {
+      let meta = document.querySelector('meta[name="description"]');
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = 'description';
+        document.head.appendChild(meta);
+      }
+      meta.content = settings.meta_description;
+    }
+    setText(q('.copyright'), settings.copyright);
+
+    const socialMap = {
+      'يوتيوب': settings.youtube,
+      'انستغرام': settings.instagram,
+      'واتساب': settings.whatsapp_link,
+      'الموقع': settings.website
+    };
+    Object.entries(socialMap).forEach(([label, href]) => {
+      if (!href) return;
+      const a = q('.social[aria-label="' + label + '"]');
+      if (a) {
+        a.href = href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      }
+    });
+  }
+
+  async function fetchJSON(path) {
+    try {
+      const res = await fetch(path + '?ts=' + Date.now(), {cache:'no-store'});
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (_) {
+      return null;
+    }
+  }
+
   async function loadCMSContent() {
     try {
-      const res = await fetch('content/site.json?ts=' + Date.now(), {cache:'no-store'});
-      if (!res.ok) return;
-      const data = await res.json();
+      const [home, stats, services, portfolio, about, news, contact, settings, legacy] = await Promise.all([
+        fetchJSON('content/home.json'),
+        fetchJSON('content/stats.json'),
+        fetchJSON('content/services.json'),
+        fetchJSON('content/portfolio.json'),
+        fetchJSON('content/about.json'),
+        fetchJSON('content/news.json'),
+        fetchJSON('content/contact.json'),
+        fetchJSON('content/settings.json'),
+        fetchJSON('content/site.json')
+      ]);
 
-      applyHero(data.hero || {});
-      applyStats(data.stats || []);
+      const heroData = home || legacy?.hero || {};
+      const statsData = stats?.items || legacy?.stats || [];
+      const servicesData = services || {
+        title: legacy?.services_section?.title,
+        description: legacy?.services_section?.description,
+        items: legacy?.services || []
+      };
+      const portfolioData = portfolio || {
+        title: legacy?.portfolio_section?.title,
+        description: legacy?.portfolio_section?.description,
+        items: legacy?.works || []
+      };
+      const aboutData = about || legacy?.about || {};
+      const newsData = news || {
+        title: legacy?.news_section?.title,
+        description: legacy?.news_section?.description,
+        items: legacy?.news || []
+      };
+      const contactData = contact || legacy?.contact || {};
+
+      applyHero(heroData);
+      applyStats(statsData);
 
       const servicesHead = q('#services .section-head > div');
-      setText(q('h2', servicesHead), data.services_section?.title);
-      setText(q('p', servicesHead), data.services_section?.description);
-      applyServices(data.services || []);
+      setText(q('h2', servicesHead), servicesData?.title);
+      setText(q('p', servicesHead), servicesData?.description);
+      applyServices(servicesData?.items || []);
 
       const worksHead = q('#portfolio .section-head > div');
-      setText(q('h2', worksHead), data.portfolio_section?.title);
-      setText(q('p', worksHead), data.portfolio_section?.description);
-      applyWorks(data.works || []);
+      setText(q('h2', worksHead), portfolioData?.title);
+      setText(q('p', worksHead), portfolioData?.description);
+      applyWorks(portfolioData?.items || []);
 
-      applyAbout(data.about || {});
+      applyAbout(aboutData);
 
       const newsHead = q('#coverage .section-head > div');
-      setText(q('h2', newsHead), data.news_section?.title);
-      setText(q('p', newsHead), data.news_section?.description);
-      applyNews(data.news || []);
+      setText(q('h2', newsHead), newsData?.title);
+      setText(q('p', newsHead), newsData?.description);
+      applyNews(newsData?.items || []);
 
-      applyContact(data.contact || {});
+      applyContact(contactData);
+      applySettings(settings || {});
     } catch (err) {
       console.warn('CMS content load failed', err);
     }
   }
-
   loadCMSContent();
 })();
