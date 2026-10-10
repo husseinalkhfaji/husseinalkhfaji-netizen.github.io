@@ -3,117 +3,195 @@ backend:
   turbo_site_id: 8f160ea6-be07-43c2-8b9e-1e6b4cc868bb
   branch: main
 
+site_url: "https://husseinalkhfaji.github.io/husseinalkhfaji-netizen.github.io/"
+display_url: "https://husseinalkhfaji.github.io/husseinalkhfaji-netizen.github.io/"
+
 media_folder: "assets/uploads"
 public_folder: "assets/uploads"
 
 locale: "ar"
 
 collections:
-  - name: "site"
-    label: "إدارة الموقع"
+  - name: "home"
+    label: "🏠 الرئيسية"
+    description: "عنوان وصورة ونص مقدمة الموقع."
+    editor:
+      preview: false
     files:
-      - name: "site_content"
-        label: "محتوى الموقع"
-        file: "content/site.json"
+      - name: "home"
+        label: "تعديل الواجهة الرئيسية"
+        file: "content/home.json"
         format: "json"
         fields:
-          - label: "الواجهة الرئيسية"
-            name: "hero"
-            widget: "object"
-            collapsed: false
-            fields:
-              - { label: "السطر التعريفي", name: "kicker", widget: "string" }
-              - { label: "العنوان الرئيسي", name: "title", widget: "string" }
-              - { label: "الكلمة المميزة", name: "highlight", widget: "string" }
-              - { label: "الوصف", name: "description", widget: "text" }
-              - { label: "نص زر الأعمال", name: "primary_button", widget: "string" }
-              - { label: "نص زر الحجز", name: "secondary_button", widget: "string" }
-              - { label: "صورة المقدمة", name: "image", widget: "image", required: false }
+          - { label: "السطر التعريفي الصغير", name: "kicker", widget: "string", hint: "يظهر فوق العنوان الرئيسي." }
+          - { label: "العنوان الرئيسي", name: "title", widget: "string" }
+          - { label: "الكلمة المميزة باللون الأزرق", name: "highlight", widget: "string" }
+          - { label: "وصف المقدمة", name: "description", widget: "text" }
+          - { label: "نص زر مشاهدة الأعمال", name: "primary_button", widget: "string" }
+          - { label: "نص زر الحجز", name: "secondary_button", widget: "string" }
+          - { label: "صورة المقدمة", name: "image", widget: "image", required: false, hint: "إذا تركتها فارغة تبقى الصورة الحالية." }
 
+  - name: "stats"
+    label: "📊 الإحصائيات"
+    description: "الأرقام الظاهرة أسفل مقدمة الموقع."
+    editor:
+      preview: false
+    files:
+      - name: "stats"
+        label: "تعديل الإحصائيات"
+        file: "content/stats.json"
+        format: "json"
+        fields:
           - label: "الإحصائيات"
-            name: "stats"
+            name: "items"
             widget: "list"
+            collapsed: true
             summary: "{{fields.value}} — {{fields.label}}"
             fields:
-              - { label: "الرقم", name: "value", widget: "string" }
-              - { label: "الوصف", name: "label", widget: "string" }
+              - { label: "الرقم", name: "value", widget: "string", hint: "مثال: 500+" }
+              - { label: "الوصف", name: "label", widget: "string", hint: "مثال: مادة وتغطية" }
 
-          - label: "عنوان قسم الخدمات"
-            name: "services_section"
-            widget: "object"
-            fields:
-              - { label: "العنوان", name: "title", widget: "string" }
-              - { label: "الوصف", name: "description", widget: "text" }
-
+  - name: "services"
+    label: "🎥 الخدمات"
+    description: "إدارة عنوان قسم الخدمات وبطاقات الخدمات وصورها."
+    editor:
+      preview: false
+    files:
+      - name: "services"
+        label: "إدارة الخدمات"
+        file: "content/services.json"
+        format: "json"
+        fields:
+          - { label: "عنوان القسم", name: "title", widget: "string" }
+          - { label: "وصف القسم", name: "description", widget: "text" }
           - label: "الخدمات"
-            name: "services"
+            name: "items"
             widget: "list"
+            collapsed: true
             summary: "{{fields.title}}"
             fields:
               - { label: "اسم الخدمة", name: "title", widget: "string" }
-              - { label: "الوصف", name: "description", widget: "text" }
-              - { label: "الشارة", name: "tag", widget: "string", required: false }
+              - { label: "وصف الخدمة", name: "description", widget: "text" }
+              - { label: "الشارة المختصرة", name: "tag", widget: "string", required: false, hint: "مثال: صورة وفيديو" }
               - { label: "صورة الخدمة", name: "image", widget: "image", required: false }
 
-          - label: "عنوان قسم الأعمال"
-            name: "portfolio_section"
-            widget: "object"
-            fields:
-              - { label: "العنوان", name: "title", widget: "string" }
-              - { label: "الوصف", name: "description", widget: "text" }
-
-          - label: "الأعمال ومعارض الصور"
-            name: "works"
+  - name: "portfolio"
+    label: "📷 الأعمال"
+    description: "إضافة وتعديل الأعمال وصور الغلاف ومعارض الصور."
+    editor:
+      preview: false
+    files:
+      - name: "portfolio"
+        label: "إدارة الأعمال والمعارض"
+        file: "content/portfolio.json"
+        format: "json"
+        fields:
+          - { label: "عنوان قسم الأعمال", name: "title", widget: "string" }
+          - { label: "وصف قسم الأعمال", name: "description", widget: "text" }
+          - label: "الأعمال"
+            name: "items"
             widget: "list"
+            collapsed: true
             summary: "{{fields.title}}"
             fields:
               - { label: "اسم العمل", name: "title", widget: "string" }
-              - { label: "الوصف المختصر", name: "subtitle", widget: "string", required: false }
-              - { label: "التصنيف", name: "category", widget: "string", default: "photo" }
+              - { label: "وصف مختصر", name: "subtitle", widget: "string", required: false }
+              - label: "التصنيفات"
+                name: "category"
+                widget: "select"
+                multiple: true
+                min: 1
+                options:
+                  - { label: "الفعاليات الدينية", value: "religious" }
+                  - { label: "المواكب", value: "mawakeb" }
+                  - { label: "الوثائقيات", value: "doc" }
+                  - { label: "صور فوتوغرافية", value: "photo" }
               - { label: "صورة الغلاف", name: "cover", widget: "image", required: false }
               - label: "صور المعرض"
                 name: "gallery"
                 widget: "list"
                 required: false
-                field: { label: "صورة", name: "image", widget: "image" }
+                collapsed: true
+                summary: "صورة من المعرض"
+                field: { label: "الصورة", name: "image", widget: "image" }
 
-          - label: "نبذة عني"
-            name: "about"
-            widget: "object"
-            fields:
-              - { label: "العنوان", name: "title", widget: "string" }
-              - { label: "الفقرة الأولى", name: "paragraph1", widget: "text" }
-              - { label: "الفقرة الثانية", name: "paragraph2", widget: "text" }
-              - { label: "الفقرة الثالثة", name: "paragraph3", widget: "text" }
-              - { label: "الاقتباس", name: "quote", widget: "text" }
-              - { label: "الصورة", name: "image", widget: "image", required: false }
-
-          - label: "عنوان قسم الأخبار"
-            name: "news_section"
-            widget: "object"
-            fields:
-              - { label: "العنوان", name: "title", widget: "string" }
-              - { label: "الوصف", name: "description", widget: "text" }
-
-          - label: "الأخبار والتغطيات"
-            name: "news"
+  - name: "news"
+    label: "📰 الأخبار والتغطيات"
+    description: "إضافة الأخبار والتغطيات وتعديل صورها وتواريخها."
+    editor:
+      preview: false
+    files:
+      - name: "news"
+        label: "إدارة الأخبار والتغطيات"
+        file: "content/news.json"
+        format: "json"
+        fields:
+          - { label: "عنوان القسم", name: "title", widget: "string" }
+          - { label: "وصف القسم", name: "description", widget: "text" }
+          - label: "الأخبار"
+            name: "items"
             widget: "list"
-            summary: "{{fields.title}}"
+            collapsed: true
+            summary: "{{fields.title}} — {{fields.date}}"
             fields:
               - { label: "عنوان الخبر", name: "title", widget: "string" }
-              - { label: "التاريخ", name: "date", widget: "string", required: false }
+              - { label: "التاريخ", name: "date", widget: "string", required: false, hint: "مثال: 20 صفر 1446 هـ" }
               - { label: "ملخص الخبر", name: "summary", widget: "text" }
               - { label: "صورة الخبر", name: "image", widget: "image", required: false }
 
-          - label: "التواصل والحجز"
-            name: "contact"
-            widget: "object"
-            fields:
-              - { label: "العنوان", name: "title", widget: "string" }
-              - { label: "الوصف", name: "description", widget: "text" }
-              - { label: "رقم الهاتف", name: "phone", widget: "string" }
-              - { label: "رقم واتساب بدون + أو مسافات", name: "whatsapp", widget: "string" }
-              - { label: "البريد الإلكتروني", name: "email", widget: "string" }
-              - { label: "الموقع", name: "location", widget: "string" }
-              - { label: "عنوان صورة التواصل", name: "overlay_title", widget: "string" }
-              - { label: "وصف صورة التواصل", name: "overlay_text", widget: "text" }
+  - name: "about"
+    label: "👤 نبذة عني"
+    description: "النص التعريفي والصورة والاقتباس."
+    editor:
+      preview: false
+    files:
+      - name: "about"
+        label: "تعديل نبذة عني"
+        file: "content/about.json"
+        format: "json"
+        fields:
+          - { label: "العنوان", name: "title", widget: "string" }
+          - { label: "الفقرة الأولى", name: "paragraph1", widget: "text" }
+          - { label: "الفقرة الثانية", name: "paragraph2", widget: "text" }
+          - { label: "الفقرة الثالثة", name: "paragraph3", widget: "text" }
+          - { label: "الاقتباس", name: "quote", widget: "text" }
+          - { label: "الصورة", name: "image", widget: "image", required: false, hint: "إذا تركتها فارغة تبقى الصورة الحالية." }
+
+  - name: "contact"
+    label: "☎️ التواصل والحجز"
+    description: "رقم الهاتف والواتساب والبريد والموقع ونصوص التواصل."
+    editor:
+      preview: false
+    files:
+      - name: "contact"
+        label: "تعديل معلومات التواصل"
+        file: "content/contact.json"
+        format: "json"
+        fields:
+          - { label: "عنوان القسم", name: "title", widget: "string" }
+          - { label: "وصف القسم", name: "description", widget: "text" }
+          - { label: "رقم الهاتف", name: "phone", widget: "string", hint: "مثال: +964 772 377 4412" }
+          - { label: "رقم واتساب", name: "whatsapp", widget: "string", hint: "بدون + أو مسافات، مثال: 9647723774412" }
+          - { label: "البريد الإلكتروني", name: "email", widget: "string" }
+          - { label: "الموقع", name: "location", widget: "string" }
+          - { label: "عنوان بطاقة التواصل", name: "overlay_title", widget: "string" }
+          - { label: "وصف بطاقة التواصل", name: "overlay_text", widget: "text" }
+
+  - name: "settings"
+    label: "⚙️ إعدادات عامة"
+    description: "اسم الموقع ووصفه وروابط التواصل وحقوق النشر."
+    editor:
+      preview: false
+    files:
+      - name: "settings"
+        label: "الإعدادات العامة"
+        file: "content/settings.json"
+        format: "json"
+        fields:
+          - { label: "اسم الموقع", name: "site_title", widget: "string" }
+          - { label: "وصف الموقع لمحركات البحث", name: "meta_description", widget: "text" }
+          - { label: "نص حقوق النشر", name: "copyright", widget: "string" }
+          - { label: "رابط يوتيوب", name: "youtube", widget: "string", required: false }
+          - { label: "رابط إنستغرام", name: "instagram", widget: "string", required: false }
+          - { label: "رابط الموقع", name: "website", widget: "string", required: false }
+          - { label: "رابط واتساب", name: "whatsapp_link", widget: "string", required: false }
