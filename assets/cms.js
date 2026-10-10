@@ -18,21 +18,32 @@
   }
 
   function applyStats(stats=[]) {
+    if (!Array.isArray(stats)) return;
+
     const shell = q('.stats-shell');
-    if (!shell || !Array.isArray(stats)) return;
-    const existing = qa('.stat', shell);
+    if (shell) {
+      const existing = qa('.stat', shell);
+      stats.forEach((item, i) => {
+        let card = existing[i];
+        if (!card) {
+          card = document.createElement('div');
+          card.className = 'stat';
+          card.innerHTML = '<div class="stat-icon"><svg class="icon-svg lg"><use href="#i-star"/></svg></div><div><strong></strong><span></span></div>';
+          shell.appendChild(card);
+        }
+        setText(q('strong', card), item.value);
+        setText(q('span', card), item.label);
+      });
+      existing.slice(stats.length).forEach(el => el.remove());
+    }
+
+    const heroCards = qa('.hero-stat-card');
     stats.forEach((item, i) => {
-      let card = existing[i];
-      if (!card) {
-        card = document.createElement('div');
-        card.className = 'stat';
-        card.innerHTML = '<div class="stat-icon"><svg class="icon-svg lg"><use href="#i-star"/></svg></div><div><strong></strong><span></span></div>';
-        shell.appendChild(card);
-      }
+      const card = heroCards[i];
+      if (!card) return;
       setText(q('strong', card), item.value);
       setText(q('span', card), item.label);
     });
-    existing.slice(stats.length).forEach(el => el.remove());
   }
 
   function applyServices(items=[]) {
