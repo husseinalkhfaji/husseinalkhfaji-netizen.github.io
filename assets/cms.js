@@ -217,12 +217,17 @@
     setText(q('.hero-actions .outline', section), hero.secondary_button);
 
     if (hero.image) {
-      imageStyle(
-        'cms-hero-photo',
-        '#home .hero-card::before',
-        media(hero.image),
-        'linear-gradient(to left, rgba(5,17,28,.2), rgba(5,17,28,.7) 56%), linear-gradient(to top, rgba(4,13,21,.72), transparent 45%)'
-      );
+      const heroImg = q('.hero-main-image', section);
+      if (heroImg) {
+        heroImg.src = media(hero.image);
+      } else {
+        imageStyle(
+          'cms-hero-photo',
+          '#home .hero-card::before',
+          media(hero.image),
+          'linear-gradient(to left, rgba(5,17,28,.2), rgba(5,17,28,.7) 56%), linear-gradient(to top, rgba(4,13,21,.72), transparent 45%)'
+        );
+      }
     }
   }
 
