@@ -1,0 +1,80 @@
+{
+  "title": "لقطات من مسيرة توثيق مستمرة",
+  "description": "معرض يركّز على مدينة كربلاء أثناء الزيارات المليونية والمواكب الحسينية، مع معالجة بصرية متناسقة مع الهوية الإعلامية.",
+  "items": [
+    {
+      "title": "كربلاء في الزيارة المليونية",
+      "subtitle": "توثيق ميداني • تصوير احترافي",
+      "category": [
+        "religious",
+        "photo"
+      ],
+      "cover": "assets/uploads/image_18852.jpg",
+      "gallery": [
+        "assets/uploads/image_4587.jpg",
+        "assets/uploads/image_4594.jpg",
+        "assets/uploads/image_9087.jpg"
+      ]
+    },
+    {
+      "title": "المواكب الحسينية",
+      "subtitle": "رايات • حشود • أجواء الزيارة",
+      "category": [
+        "mawakeb",
+        "religious"
+      ],
+      "cover": "",
+      "gallery": []
+    },
+    {
+      "title": "حشود الزائرين",
+      "subtitle": "لحظات من قلب كربلاء",
+      "category": [
+        "religious",
+        "photo"
+      ],
+      "cover": "",
+      "gallery": []
+    },
+    {
+      "title": "رايات كربلاء",
+      "subtitle": "هوية بصرية مستلهمة من الشعائر",
+      "category": [
+        "mawakeb",
+        "photo"
+      ],
+      "cover": "",
+      "gallery": []
+    },
+    {
+      "title": "توثيق المسير",
+      "subtitle": "لقطات ميدانية ورسائل إنسانية",
+      "category": [
+        "doc",
+        "photo"
+      ],
+      "cover": "",
+      "gallery": []
+    },
+    {
+      "title": "مشاهد من كربلاء",
+      "subtitle": "تفاصيل المدينة والزيارة",
+      "category": [
+        "religious",
+        "photo"
+      ],
+      "cover": "",
+      "gallery": []
+    },
+    {
+      "title": "خدمة الشعائر الحسينية",
+      "subtitle": "مواكب • فعاليات • تغطيات خاصة",
+      "category": [
+        "mawakeb",
+        "doc"
+      ],
+      "cover": "",
+      "gallery": []
+    }
+  ]
+}
