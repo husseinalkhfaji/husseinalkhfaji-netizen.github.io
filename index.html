@@ -600,6 +600,29 @@
       .hero-cinematic .hero-actions .btn{width:100%}
       .hero-pattern-touch-a{width:220px;height:160px;opacity:.16}
     }
+
+    /* Hero placement fix: keep copy away from the right edge */
+    .hero-cinematic .hero-info{
+      width:min(46%,650px)!important;
+      margin-inline-start:clamp(44px,4.2vw,86px)!important;
+      margin-inline-end:auto!important;
+    }
+    .hero-cinematic h1{
+      font-size:clamp(46px,4vw,70px)!important;
+    }
+    @media(max-width:1180px){
+      .hero-cinematic .hero-info{
+        width:min(50%,620px)!important;
+        margin-inline-start:36px!important;
+      }
+    }
+    @media(max-width:860px){
+      .hero-cinematic .hero-info{
+        width:100%!important;
+        margin-inline-start:auto!important;
+        margin-inline-end:auto!important;
+      }
+    }
 </style>
 </head>
 <body>
@@ -643,7 +666,7 @@
 
 <main>
   <section class="hero hero-cinematic" id="home">
-    <img class="hero-main-image hero-bg-image" src="assets/uploads/hero-hussein-2026.webp" alt="الإعلامي حسين الخفاجي في كربلاء">
+    <img class="hero-main-image hero-bg-image" src="assets/uploads/hero-hussein-2026-v2.webp" alt="الإعلامي حسين الخفاجي في كربلاء">
     <div class="hero-cinematic-shade" aria-hidden="true"></div>
     <div class="hero-pattern-touch hero-pattern-touch-a" aria-hidden="true"></div>
     <div class="hero-pattern-touch hero-pattern-touch-b" aria-hidden="true"></div>
