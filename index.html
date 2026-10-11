@@ -303,13 +303,13 @@
       height:100%;
       object-fit:cover;
       object-position:center center;
-      z-index:0;
+      z-index:-5;
       transform:none;
     }
     .hero-cinematic-shade{
       position:absolute;
       inset:0;
-      z-index:1;
+      z-index:-4;
       background:
         linear-gradient(90deg,rgba(3,11,19,.02) 0%,rgba(3,11,19,.05) 34%,rgba(3,11,19,.42) 54%,rgba(3,11,19,.82) 100%),
         linear-gradient(180deg,rgba(4,14,23,.08),rgba(4,14,23,.2) 58%,rgba(3,11,19,.45));
@@ -319,15 +319,13 @@
       content:"";
       position:absolute;
       inset:0;
-      z-index:2;
+      z-index:-3;
       pointer-events:none;
       background:
         radial-gradient(circle at 74% 36%,rgba(30,143,255,.12),transparent 24%),
         linear-gradient(180deg,transparent 74%,rgba(4,14,23,.22));
     }
     .hero-cinematic-inner{
-      position:relative;
-      z-index:3;
       width:100%;
       min-height:calc(100vh - 82px);
       display:flex;
@@ -498,7 +496,7 @@
     }
     .hero-pattern-touch{
       position:absolute;
-      z-index:2;
+      z-index:-2;
       pointer-events:none;
       opacity:.28;
       filter:drop-shadow(0 0 18px rgba(30,143,255,.18));
@@ -627,6 +625,84 @@
         margin-inline-end:auto!important;
       }
     }
+
+    /* Mobile/desktop hero image visibility hardening */
+    .hero-cinematic .hero-bg-image{
+      z-index:0!important;
+      display:block!important;
+      opacity:1!important;
+      visibility:visible!important;
+    }
+    .hero-cinematic-shade{
+      z-index:1!important;
+    }
+    .hero-cinematic::after{
+      z-index:2!important;
+    }
+    .hero-cinematic-inner{
+      position:relative;
+      z-index:3!important;
+    }
+    .hero-pattern-touch{
+      z-index:2!important;
+    }
+
+    @media(max-width:860px){
+      .hero-cinematic{
+        position:relative!important;
+        display:block!important;
+        min-height:auto!important;
+        padding-top:min(76vw,520px)!important;
+        background:#07141f!important;
+      }
+      .hero-cinematic .hero-bg-image{
+        position:absolute!important;
+        inset:0 0 auto 0!important;
+        width:100%!important;
+        height:min(76vw,520px)!important;
+        aspect-ratio:auto!important;
+        object-fit:cover!important;
+        object-position:center center!important;
+        z-index:0!important;
+      }
+      .hero-cinematic-shade{
+        display:block!important;
+        position:absolute!important;
+        inset:0 0 auto 0!important;
+        height:min(76vw,520px)!important;
+        background:linear-gradient(180deg,rgba(3,11,19,.04) 0%,rgba(3,11,19,.16) 58%,#07141f 100%)!important;
+      }
+      .hero-cinematic::after{
+        display:block!important;
+        position:absolute!important;
+        inset:0 0 auto 0!important;
+        height:min(76vw,520px)!important;
+        background:linear-gradient(180deg,transparent 52%,rgba(7,20,31,.34) 72%,#07141f 100%)!important;
+      }
+      .hero-cinematic-inner{
+        min-height:0!important;
+        margin-top:-38px!important;
+        padding-top:0!important;
+        padding-bottom:54px!important;
+      }
+    }
+
+    @media(max-width:560px){
+      .hero-cinematic{
+        padding-top:min(86vw,480px)!important;
+      }
+      .hero-cinematic .hero-bg-image,
+      .hero-cinematic-shade,
+      .hero-cinematic::after{
+        height:min(86vw,480px)!important;
+      }
+      .hero-cinematic .hero-bg-image{
+        object-position:center center!important;
+      }
+      .hero-cinematic-inner{
+        margin-top:-26px!important;
+      }
+    }
 </style>
 </head>
 <body>
@@ -670,7 +746,7 @@
 
 <main>
   <section class="hero hero-cinematic" id="home">
-    <img class="hero-main-image hero-bg-image" src="assets/uploads/hero-hussein-2026-v2.webp" alt="الإعلامي حسين الخفاجي في كربلاء">
+    <img class="hero-main-image hero-bg-image" src="assets/uploads/cinematic-hussein-al-khafaji-media-banner.png" alt="الإعلامي حسين الخفاجي في كربلاء">
     <div class="hero-cinematic-shade" aria-hidden="true"></div>
     <div class="hero-pattern-touch hero-pattern-touch-a" aria-hidden="true"></div>
     <div class="hero-pattern-touch hero-pattern-touch-b" aria-hidden="true"></div>
