@@ -29,7 +29,27 @@ collections:
           - { label: "وصف المقدمة", name: "description", widget: "text" }
           - { label: "نص زر مشاهدة الأعمال", name: "primary_button", widget: "string" }
           - { label: "نص زر الحجز", name: "secondary_button", widget: "string" }
-          - { label: "صورة المقدمة", name: "image", widget: "image", required: false, hint: "إذا تركتها فارغة تبقى الصورة الحالية." }
+          - { label: "صورة خلفية الواجهة", name: "background_image", widget: "image", required: false, hint: "ارفع الصورة التي تريدها كخلفية للواجهة الرئيسية. تستطيع تبديلها بأي وقت." }
+          - label: "موضع الخلفية"
+            name: "background_position"
+            widget: "select"
+            default: "center"
+            options:
+              - { label: "الوسط", value: "center" }
+              - { label: "يمين", value: "right center" }
+              - { label: "يسار", value: "left center" }
+              - { label: "أعلى", value: "center top" }
+              - { label: "أسفل", value: "center bottom" }
+          - { label: "درجة التعتيم فوق الخلفية", name: "overlay_strength", widget: "number", default: 55, value_type: "int", min: 20, max: 85, step: 5, hint: "كلما زاد الرقم أصبحت الخلفية أغمق والنص أوضح." }
+          - { label: "صورة شخصية منفصلة (اختياري)", name: "portrait_image", widget: "image", required: false, hint: "استخدم صورة PNG بخلفية شفافة إذا أردت وضع الشخصية فوق الخلفية. اتركها فارغة إذا كانت الشخصية ضمن الخلفية نفسها." }
+          - label: "مكان الصورة الشخصية"
+            name: "portrait_position"
+            widget: "select"
+            default: "left"
+            options:
+              - { label: "يسار", value: "left" }
+              - { label: "يمين", value: "right" }
+          - { label: "شعار الواجهة (اختياري)", name: "logo_image", widget: "image", required: false, hint: "إذا تركته فارغاً يبقى الشعار الحالي." }
 
   - name: "stats"
     label: "📊 الإحصائيات"
